@@ -1,4 +1,5 @@
 import torch.nn as nn
+import nltk
 
 
 class ChatbotModel(nn.Module):
@@ -17,3 +18,11 @@ class ChatbotModel(nn.Module):
         x = self.dropout(x)
         x = self.fc3(x)
         return x
+
+
+@staticmethod
+def tokenize_and_lemmatize(text):
+    lemmatizer = nltk.WordNetLemmatizer()
+    words = nltk.word_tokenize(text)
+    words = [lemmatizer.lemmatize(word.lower()) for word in words if word.isalpha()]
+    return words
