@@ -3,6 +3,9 @@ import nltk
 import os
 import json
 import numpy as np
+import torch
+from torch.utils.data import TensorDataset, DataLoader
+import torch.optim as optim
 
 
 class ChatbotModel(nn.Module):
@@ -98,3 +101,30 @@ class ChatbotAssistant:
         self.y = np.array(indices)
 
         print(f"Training data prepared: {self.X.shape[0]} samples, {self.X.shape[1]} features")
+
+    def train_model(self, batch_size=8, lr=0.001, epochs=100):
+        X_tensor = torch.tensor(self.X, dtype=torch.float32)
+        y_tensor = torch.tensor(self.y, dtype=torch.long)
+        dataset = TensorDataset(X_tensor, y_tensor)
+        loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
+        self.model = ChatbotModel(self.X.shape[1], len(self.intents))
+        criterion = nn.CrossEntropyLoss()
+        optimizer = optim.Adam(self.model.parameters(), lr=lr)
+
+        print("Starting training...")
+        for epoch in range(epochs):
+            running_loss = 0.0
+
+            for batch_X, batch_y in loader:
+                optimizer.zero_grad()
+                outputs = self.model(batch_X)
+                loss = criterion(outputs, batch_y)
+                loss.backward()
+                optimizer.step()
+                running_loss += loss.item()
+
+            if (epoch + 1) % 20 == 0:
+                avg_loss = running_loss / len(loader)
+                print(f"Epoch {epoch + 1}/{epochs}: Loss: {avg_loss:.4f}")
+
+        print("Training completed!")
