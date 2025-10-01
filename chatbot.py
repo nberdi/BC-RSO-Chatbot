@@ -7,6 +7,8 @@ import torch
 from torch.utils.data import TensorDataset, DataLoader
 import torch.optim as optim
 import pickle
+import torch.nn.functional as F
+import random
 
 
 class ChatbotModel(nn.Module):
@@ -158,3 +160,54 @@ class ChatbotAssistant:
         self.model.eval()
 
         print("Model and data loaded successfully!")
+
+    def get_confidence_score(self, predictions):
+        probabilities = F.softmax(predictions, dim=1)
+        max_prob = torch.max(probabilities).item()
+        return max_prob
+
+    def process_message(self, input_message, confidence_threshold=0.7):
+        words = self.tokenize_and_lemmatize(input_message)
+        bag = self.bag_of_words(words)
+        bag_tensor = torch.tensor([bag], dtype=torch.float32)
+        self.model.eval()
+
+        with torch.no_grad():
+            predictions = self.model(bag_tensor)
+
+        confidence = self.get_confidence_score(predictions)
+        predicted_class_index = torch.argmax(predictions, dim=1).item()
+        predicted_intent = self.intents[predicted_class_index]
+
+        if confidence < confidence_threshold:
+            return ("I'm not sure about that. For specific RSO questions, please contact the RSO Specialist at "
+                    "rso@berea.edu or visit the OSIE office in Alumni Building.")
+
+        if self.function_mappings and predicted_intent in self.function_mappings:
+            self.function_mappings[predicted_intent]()
+
+        if self.intents_responses[predicted_intent]:
+            return random.choice(self.intents_responses[predicted_intent])
+        else:
+            return ("I understand your question, but I don't have a specific response. Please contact rso@berea.edu "
+                    "for assistance.")
+
+    def chat(self):
+        print("=" * 60)
+        print("RSO Chatbot Assistant - Berea College")
+        print("Type 'quit' or 'exit' to end the conversation")
+        print("=" * 60)
+
+        while True:
+            user_input = input("\nYou: ").strip()
+
+            if user_input.lower() in ['quit', 'exit', 'bye', 'goodbye']:
+                print("\nBot: Goodbye! For more RSO help, contact rso@berea.edu")
+                break
+
+            if not user_input:
+                print("\nBot: Please type your question about RSOs.")
+                continue
+
+            response = self.process_message(user_input)
+            print(f"\nBot: {response}")
