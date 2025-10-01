@@ -6,6 +6,7 @@ import numpy as np
 import torch
 from torch.utils.data import TensorDataset, DataLoader
 import torch.optim as optim
+import pickle
 
 
 class ChatbotModel(nn.Module):
@@ -128,3 +129,32 @@ class ChatbotAssistant:
                 print(f"Epoch {epoch + 1}/{epochs}: Loss: {avg_loss:.4f}")
 
         print("Training completed!")
+
+    def save_model(self, model_path='rso_chatbot_model.pth', data_path='rso_chatbot_data.pkl'):
+        torch.save(self.model.state_dict(), model_path)
+        data = {
+            'vocabulary': self.vocabulary,
+            'intents': self.intents,
+            'intents_responses': self.intents_responses,
+            'input_size': self.X.shape[1],
+            'output_size': len(self.intents)
+        }
+
+        with open(data_path, 'wb') as f:
+            pickle.dump(data, f)
+
+        print(f"Model saved to {model_path}")
+        print(f"Data saved to {data_path}")
+
+    def load_model(self, model_path='rso_chatbot_model.pth', data_path='rso_chatbot_data.pkl'):
+        with open(data_path, 'rb') as f:
+            data = pickle.load(f)
+
+        self.vocabulary = data['vocabulary']
+        self.intents = data['intents']
+        self.intents_responses = data['intents_responses']
+        self.model = ChatbotModel(data['input_size'], data['output_size'])
+        self.model.load_state_dict(torch.load(model_path, weights_only=True))
+        self.model.eval()
+
+        print("Model and data loaded successfully!")
