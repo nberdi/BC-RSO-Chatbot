@@ -20,9 +20,36 @@ class ChatbotModel(nn.Module):
         return x
 
 
-@staticmethod
-def tokenize_and_lemmatize(text):
-    lemmatizer = nltk.WordNetLemmatizer()
-    words = nltk.word_tokenize(text)
-    words = [lemmatizer.lemmatize(word.lower()) for word in words if word.isalpha()]
-    return words
+class ChatbotAssistant:
+    def __init__(self, intents_path, function_mappings=None):
+        self.model = None
+        self.intents_path = intents_path
+        self.documents = []
+        self.vocabulary = []
+        self.intents = []
+        self.intents_responses = {}
+        self.function_mappings = function_mappings or {}
+        self.X = None
+        self.y = None
+
+        try:
+            nltk.data.find('tokenizers/punkt')
+        except LookupError:
+            nltk.download('punkt')
+
+        try:
+            nltk.data.find('corpora/wordnet')
+        except LookupError:
+            nltk.download('wordnet')
+
+        try:
+            nltk.data.find('corpora/omw-1.4')
+        except LookupError:
+            nltk.download('omw-1.4')
+
+    @staticmethod
+    def tokenize_and_lemmatize(text):
+        lemmatizer = nltk.WordNetLemmatizer()
+        words = nltk.word_tokenize(text)
+        words = [lemmatizer.lemmatize(word.lower()) for word in words if word.isalpha()]
+        return words
