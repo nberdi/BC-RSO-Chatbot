@@ -2,6 +2,7 @@ import torch.nn as nn
 import nltk
 import os
 import json
+import numpy as np
 
 
 class ChatbotModel(nn.Module):
@@ -78,3 +79,22 @@ class ChatbotAssistant:
             print(f"Loaded {len(self.intents)} intents with {len(self.vocabulary)} unique words")
         else:
             raise FileNotFoundError(f"Intents file not found: {self.intents_path}")
+
+    def bag_of_words(self, words):
+        return [1 if word in words else 0 for word in self.vocabulary]
+
+    def prepare_data(self):
+        bags = []
+        indices = []
+
+        for document in self.documents:
+            words = document[0]
+            bag = self.bag_of_words(words)
+            intent_index = self.intents.index(document[1])
+            bags.append(bag)
+            indices.append(intent_index)
+
+        self.X = np.array(bags)
+        self.y = np.array(indices)
+
+        print(f"Training data prepared: {self.X.shape[0]} samples, {self.X.shape[1]} features")
