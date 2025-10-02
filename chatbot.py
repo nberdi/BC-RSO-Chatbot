@@ -211,3 +211,36 @@ class ChatbotAssistant:
 
             response = self.process_message(user_input)
             print(f"\nBot: {response}")
+
+
+def train_new_model():
+    assistant = ChatbotAssistant('intents.json')
+    assistant.parse_intents()
+    assistant.prepare_data()
+    assistant.train_model(batch_size=8, lr=0.001, epochs=200)
+    assistant.save_model()
+    return assistant
+
+
+def load_existing_model():
+    assistant = ChatbotAssistant('intents.json')
+    assistant.parse_intents()
+    assistant.load_model()
+    return assistant
+
+
+def main():
+    model_exists = os.path.exists('rso_chatbot_model.pth') and os.path.exists('rso_chatbot_data.pkl')
+
+    if model_exists:
+        print("Existing model found. Loading...")
+        assistant = load_existing_model()
+    else:
+        print("No existing model found. Training new model...")
+        assistant = train_new_model()
+
+    assistant.chat()
+
+
+if __name__ == '__main__':
+    main()
