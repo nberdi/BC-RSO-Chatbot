@@ -1,0 +1,393 @@
+{
+    "intents": [
+        {
+            "tag": "greeting",
+            "patterns": ["Hi", "Hello", "Hey", "Hey there", "Hi there", "Greetings", "What's up"],
+            "responses": ["Hello! I'm here to help with RSO questions at Berea College. What can I assist you with?", "Hi there! I can help you with Recognized Student Organization questions. How can I help?", "Hello! Need help with RSO policies, registration, or events? I'm here to assist!"]
+        },
+
+        {
+            "tag": "goodbye",
+            "patterns": ["Bye", "Goodbye", "See you later", "Thanks", "That's all", "Exit", "Quit"],
+            "responses": ["Goodbye! Feel free to contact the RSO Specialist at rso@berea.edu if you need further assistance.", "Have a great day! Remember, the OSIE office is always here to help with RSO questions.", "Take care! Don't hesitate to reach out if you have more RSO questions."]
+        },
+
+        {
+            "tag": "rso_registration",
+            "patterns": ["How do I start a new RSO", "register new organization", "create new club", "start a club", "new RSO registration", "how to register RSO"],
+            "responses": ["To start a new RSO, you need: 1) Four students willing to be officers, 2) A full-time faculty/staff advisor, 3) A completed Constitution and By-Laws. Registration windows are Oct 15-Dec 1, Jan 15-Mar 1, and Apr 15-May 15. Contact the RSO Specialist at rso@berea.edu for help."]
+        },
+
+        {
+            "tag": "constitution_help",
+            "patterns": ["constitution requirements", "bylaws help", "what goes in constitution", "constitution template", "how to write constitution"],
+            "responses": ["Your constitution must include: Organization name, purpose statement, membership eligibility, officer positions and duties, meeting requirements, advisor information, financial procedures, and amendment process. Contact the RSO Specialist at rso@berea.edu for the official template."]
+        },
+
+        {
+            "tag": "finding_advisor",
+            "patterns": ["RSO advisor", "finding advisor", "need advisor", "how to find advisor", "get advisor"],
+            "responses": ["Every RSO needs a full-time faculty or staff advisor. Choose someone familiar with your organization's goals who can assist with purchases and college policies. Advisors cannot hold office or vote, but serve as your primary resource for policy questions."]
+        },
+
+        {
+            "tag": "re_registration",
+            "patterns": ["re-register RSO", "annual registration", "renew RSO", "yearly registration", "how to re-register"],
+            "responses": ["RSOs must re-register annually. The process typically opens in April and ends mid-late May. Update your information on Berea Engage including officers, advisor, and constitution. You'll receive an email when registration opens."]
+        },
+
+        {
+            "tag": "berea_engage",
+            "patterns": ["Berea Engage", "how to use Berea Engage", "RSO platform", "online RSO system", "engage help"],
+            "responses": ["Berea Engage is your RSO hub for managing events, roster, elections, documents, and communications. Access it through myBerea portal > Organizations tab. Contact rso@berea.edu for training on using the platform."]
+        },
+
+        {
+            "tag": "funding_general",
+            "patterns": ["RSO funding", "how to get money", "organization funds", "RSO budget", "student organization money"],
+            "responses": ["RSOs receive funding from OSIE each academic year if they're Active, participate in Fall Involvement Fair, and attend financial training. You also have a college account at Lincoln Hall Student Service Center for deposits and withdrawals."]
+        },
+
+        {
+            "tag": "dues_policy",
+            "patterns": ["membership dues", "RSO dues", "can we charge dues", "membership fees", "how much dues"],
+            "responses": ["RSOs can charge membership dues up to $10 per semester. This must be stated in your constitution. All dues must be deposited in your college account - no outside bank accounts or electronic transfers (PayPal, Venmo, etc.) are allowed."]
+        },
+
+        {
+            "tag": "funding_requests",
+            "patterns": ["request funding", "RSO Council funding", "extra money", "additional funding", "funding request"],
+            "responses": ["You can request additional funds from the RSO Council through Berea Engage. Submit an Event Request form with funding selected and include an itemized budget for review."]
+        },
+
+        {
+            "tag": "event_submission",
+            "patterns": ["submit event", "register event", "event request", "how to register event", "event approval"],
+            "responses": ["All RSO events must be registered on Berea Engage at least 2 weeks prior. You'll need: event title, description, image, date/time, location, categories, on-site contact, and itemized budget if requesting funding."]
+        },
+
+        {
+            "tag": "room_reservations",
+            "patterns": ["reserve room", "book meeting space", "room booking", "meeting space", "reserve space"],
+            "responses": ["Contact the specific building manager to reserve rooms. For Alumni/Woods-Penniman Complex, use the Outlook system. Each building has different procedures - see Appendix C in the RSO Handbook for specific contacts."]
+        },
+
+        {
+            "tag": "posting_policy",
+            "patterns": ["hang posters", "posting policy", "advertise event", "put up flyers", "poster rules"],
+            "responses": ["Posters must have correct event details, sponsoring organization names, high contrast text, and no personal/payment info. Alumni/Woods-Penniman posters need OSIE approval. Other buildings allow posting on designated bulletin boards only."]
+        },
+
+        {
+            "tag": "chalk_policy",
+            "patterns": ["chalk policy", "sidewalk chalk", "chalking rules", "can I chalk", "chalk advertising"],
+            "responses": ["Chalking is allowed with water-soluble sidewalk chalk only. Use horizontal surfaces (sidewalks, stairs) in open areas that can be reached by rain. No chalking on vertical surfaces like buildings, walls, or trees."]
+        },
+
+        {
+            "tag": "social_media",
+            "patterns": ["social media policy", "Facebook page", "Instagram rules", "social media guidelines", "online posting"],
+            "responses": ["RSO social media must represent Berea College positively and follow the Student Handbook. Avoid confidential information and remember posts are public. For social media advice, contact Brandon Nichols at nicholsb2@berea.edu."]
+        },
+
+        {
+            "tag": "email_policy",
+            "patterns": ["campus email", "send campus wide email", "email advertising", "announce event email"],
+            "responses": ["RSOs cannot use campus-wide email groups directly. Instead, OSIE sends weekly Monday emails featuring approved events from Berea Engage. Submit events early or contact the Student Engagement Coordinator for late additions."]
+        },
+
+        {
+            "tag": "elections",
+            "patterns": ["RSO elections", "officer elections", "how to hold elections", "election process", "voting"],
+            "responses": ["Hold annual elections for executive officers as outlined in your constitution. Spring elections are recommended. Use Berea Engage's Elections tool and update officer information during re-registration."]
+        },
+
+        {
+            "tag": "meetings",
+            "patterns": ["meeting requirements", "how often meet", "meeting agenda", "run meetings", "meeting minutes"],
+            "responses": ["RSOs must hold regular meetings including one general campus-wide recruitment meeting. Create agendas, record minutes for attendance tracking, and upload to Berea Engage. The President typically runs meetings."]
+        },
+
+        {
+            "tag": "rso_council",
+            "patterns": ["RSO Council", "council meetings", "club representative", "student council"],
+            "responses": ["Each active RSO must have a representative at RSO Council meetings. It's a student-run body that supports and oversees club operations, with yearly elections for executive officers."]
+        },
+
+        {
+            "tag": "attendance_tracking",
+            "patterns": ["track attendance", "event attendance", "scanner", "check in students", "attendance scanner"],
+            "responses": ["Track attendance for all events using ID scanners from OSIE. Navigate to your event page > Manage Event > Event Attendance > enter the code and start scanning. Submit attendance data to Berea Engage after events."]
+        },
+
+        {
+            "tag": "equipment_rental",
+            "patterns": ["rent equipment", "borrow equipment", "AV equipment", "tables chairs", "event equipment"],
+            "responses": ["Rent media equipment from IS&S, outdoor/sporting equipment from Campus Recreation, and event/party equipment from CAB. Each has different procedures and may require your RSO account number."]
+        },
+
+        {
+            "tag": "catering",
+            "patterns": ["food for events", "catering", "serve food", "event food", "Sodexo catering"],
+            "responses": ["RSOs cannot serve home-cooked food without a food handler's license. Use Sodexo catering (berea.catertrax.com or bc_catering@berea.edu) or ezcater.com. Contact OSIE for EZ Cater account setup assistance."]
+        },
+
+        {
+            "tag": "travel_policy",
+            "patterns": ["RSO travel", "off campus trips", "travel requirements", "overnight trips", "field trips"],
+            "responses": ["Overnight trips or high-risk activities require a faculty/staff chaperone. For groups over 8 students, notify OSIE at rso@berea.edu as a safety precaution. Review accident/incident procedures before traveling."]
+        },
+
+        {
+            "tag": "dance_party_policy",
+            "patterns": ["host dance", "party policy", "dance requirements", "social events", "dance approval"],
+            "responses": ["Dances require: RSO in good standing, reservation 1 month prior, mandatory training, security plan meeting, and Event Request 14 days before. Security includes ID checks, bag searches, and designated staff. Contact OSIE for dance request form."]
+        },
+
+        {
+            "tag": "contracts",
+            "patterns": ["outside performers", "speakers", "contracts", "hire performers", "guest speakers"],
+            "responses": ["Students cannot sign contracts for RSOs - only college faculty/staff can sign. Notify OSIE before finalizing any contracts. Speakers must comply with college policies and Great Commitments."]
+        },
+
+        {
+            "tag": "movie_policy",
+            "patterns": ["show movies", "movie night", "film screening", "copyright", "movie licensing"],
+            "responses": ["Movie screenings require proper licensing unless they meet education exemption criteria (instructor-supervised, enrolled students only, classroom setting). OSIE has a Swank Motion Pictures contract - contact rso@berea.edu for licensing."]
+        },
+
+        {
+            "tag": "demonstrations",
+            "patterns": ["protest", "demonstration", "rally", "campus demonstration", "political activity"],
+            "responses": ["Demonstrations require approval 2 weeks prior through Student Life. Submit a Campus Demonstration Approval Form on Berea Engage specifying purpose, location, date, and time. Cannot block traffic or building entrances."]
+        },
+
+        {
+            "tag": "incident_procedures",
+            "patterns": ["accident", "incident", "emergency", "injury", "what if someone gets hurt"],
+            "responses": ["On campus: Call Public Safety (859-985-3333) for any incident, injury, or emergency. Off campus: Call 9-1-1 if needed, then notify Public Safety. They will document and provide further instructions."]
+        },
+
+        {
+            "tag": "loss_recognition",
+            "patterns": ["frozen RSO", "lose recognition", "inactive RSO", "RSO suspended", "organization problems"],
+            "responses": ["RSOs can lose recognition for policy violations, failure to re-register, or not meeting constitutional responsibilities. OSIE may mandate training, suspend activities, or revoke recognition. Contact them to discuss any issues."]
+        },
+
+        {
+            "tag": "reactivate_rso",
+            "patterns": ["reactivate RSO", "restart inactive organization", "revive old club", "bring back RSO"],
+            "responses": ["To reactivate an inactive RSO, follow new organization procedures: 4 members, advisor, revised constitution. Contact the RSO Specialist at rso@berea.edu for a list of inactive organizations available for reactivation."]
+        },
+
+        {
+            "tag": "privileges_rights",
+            "patterns": ["RSO benefits", "what can RSOs do", "RSO privileges", "organization rights", "RSO perks"],
+            "responses": ["Active RSOs can: use Berea College name, recruit on campus, use facilities, receive funding, participate in fairs and events, advertise on campus, access OSIE support, and assemble/demonstrate following college policies."]
+        },
+
+        {
+            "tag": "membership_rules",
+            "patterns": ["who can join", "membership eligibility", "RSO membership", "join organization", "member requirements"],
+            "responses": ["RSO membership is open to any full-time or part-time student, faculty, staff, or administrator of Berea College. Cannot discriminate based on age, gender, sexual orientation, race, religion, national origin, or other protected characteristics."]
+        },
+
+        {
+            "tag": "account_info",
+            "patterns": ["RSO account", "account number", "check balance", "Lincoln Hall account", "organization money"],
+            "responses": ["Your RSO account is at Student Service Center in Lincoln Hall. Executive officers can access the account. Accounts roll over annually but freeze after 4 semesters of inactivity. No outside bank accounts permitted."]
+        },
+
+        {
+            "tag": "osie_contact",
+            "patterns": ["contact OSIE", "RSO office", "student involvement office", "who to contact", "RSO help", "OSIE team", "OSIE staff", "who works at OSIE"],
+            "responses": ["Office of Student Involvement & Engagement (OSIE) is in Alumni Building. Contact RSO Specialist at rso@berea.edu or call x3395. Team includes Charles Saunders (Associate Director), Megan Meyer (Administrative Assistant), and Sisaly Krick (BereaCorps Web and Digital Media Associate)."]
+        },
+
+        {
+            "tag": "noise_policy",
+            "patterns": ["noise policy", "loud events", "music volume", "noise complaints", "quiet hours"],
+            "responses": ["Events near residence halls must end by 10:00 PM due to quiet hours and City of Berea noise ordinance. Public Safety monitors noise levels. Excessive noise can result in event cancellation or RSO suspension."]
+        },
+
+        {
+            "tag": "categories",
+            "patterns": ["RSO categories", "types of organizations", "organization categories", "what category", "club types"],
+            "responses": ["RSO categories include: Academic, Arts, Cultural, Faith-Based, Pre-Professional, Recreational, and Service/Advocacy. Choose the category that best fits your organization's mission during registration."]
+        },
+
+        {
+            "tag": "advisor_definition",
+            "patterns": ["what is an advisor", "advisor role", "advisor definition", "what does advisor do", "advisor responsibilities"],
+            "responses": ["An advisor is a full-time faculty or staff member who serves as a resource for student organizations. They should be knowledgeable about campus policies, kept informed of all activities, and help with planning programs, budget management, and policy compliance."]
+        },
+
+        {
+            "tag": "advisor_requirements",
+            "patterns": ["advisor qualifications", "who can be advisor", "advisor eligibility", "faculty staff advisor"],
+            "responses": ["Advisors must be full-time faculty or staff members at Berea College. They should have strong interest in the organization's mission, time availability, and knowledge of campus resources. Advisors generally cannot hold office or vote in RSOs."]
+        },
+
+        {
+            "tag": "advisor_vs_supervisor",
+            "patterns": ["advisor versus supervisor", "difference between advisor supervisor", "advising vs supervising", "advisor not supervisor"],
+            "responses": ["An advisor acts as a resource person and role model, helping the group with self-evaluation. A supervisor acts as the leader, evaluating success and telling the group what to do. Students should lead their organizations, with advisors providing guidance and support."]
+        },
+
+        {
+            "tag": "advisor_agreement",
+            "patterns": ["advisor agreement form", "advisor contract", "advisor paperwork", "advisor forms"],
+            "responses": ["All advisors must complete an Advisor Agreement Form annually during re-registration or when changing advisors. This form requires signatures from both the current club president and advisor. Find it on Berea Engage at berea.campuslabs.com/engage."]
+        },
+
+        {
+            "tag": "advisor_replacement",
+            "patterns": ["change advisor", "new advisor", "advisor replacement", "remove advisor", "advisor stepping down"],
+            "responses": ["Organizations control their advisor selection. When changing advisors, work with Campus Life to identify suitable candidates, complete a new Advisor Agreement Form, and update Berea Engage. Advisors serve at-will and may step down or be removed if necessary."]
+        },
+
+        {
+            "tag": "advisor_styles",
+            "patterns": ["advising styles", "types of advisors", "advisor approaches", "how to advise"],
+            "responses": ["Advisor styles include: Educator (adaptable, supportive), Referee (handles disputes, builds teams), Overseer (distant, available when called), and Boss (authoritative, directive). Adjust your style based on the organization's needs and development stage."]
+        },
+
+        {
+            "tag": "advisor_expectations",
+            "patterns": ["advisor expectations", "what advisors should do", "advisor duties", "advisor responsibilities list"],
+            "responses": ["Advisors should: assist with program planning, ensure policy compliance, encourage member participation, accompany off-campus trips, help with budget management, attend meetings when possible, assist with officer transitions, and evaluate group effectiveness."]
+        },
+
+        {
+            "tag": "mutual_expectations",
+            "patterns": ["advisor student expectations", "setting expectations", "advisor relationship", "communication with students"],
+            "responses": ["Establish clear communication methods, meeting schedules, and information sharing preferences. Define what organization information you want to receive regularly. Set common goals and understand that advisors guide but don't perform tasks for the group."]
+        },
+
+        {
+            "tag": "group_development",
+            "patterns": ["group development stages", "forming storming norming performing", "organization development", "group dynamics"],
+            "responses": ["Groups go through four cyclical stages: Forming (unclear purpose, cautious members), Storming (conflicts over goals/roles), Norming (confidence building, clear agreements), and Performing (full responsibility, effective results). These stages repeat with changes."]
+        },
+
+        {
+            "tag": "healthy_organization",
+            "patterns": ["healthy organization", "organization health", "group dynamics evaluation", "successful organization"],
+            "responses": ["Healthy organizations have: comfortable member participation, consensus decision-making, solution-oriented approach, shared rewards/feedback, and goal achievement. Unhealthy signs include: few people talking, quick judgments, avoiding change, and little accomplishment without leaders."]
+        },
+
+        {
+            "tag": "situational_leadership",
+            "patterns": ["situational leadership", "leadership styles", "telling selling participating delegating", "advisor leadership"],
+            "responses": ["Four leadership styles: Telling (high task, low relationship - directive), Selling (high task, high relationship - supportive direction), Participating (low task, high relationship - shared decisions), Delegating (low task, low relationship - hands-off monitoring)."]
+        },
+
+        {
+            "tag": "advisor_training",
+            "patterns": ["advisor training", "how to be good advisor", "advisor development", "advisor resources"],
+            "responses": ["Contact the Campus Life Department for advisor training and resources. The department provides policy guidance, procedural support, and educational materials to help advisors be effective. They're partners in helping organizations succeed."]
+        },
+
+        {
+            "tag": "advisor_time_commitment",
+            "patterns": ["advisor time commitment", "how much time advising", "advisor workload", "advisor availability"],
+            "responses": ["Time commitment varies by organization. Some need weekly meetings, others meet monthly or less. Consider your availability, the organization's needs, personality differences with officers, and your knowledge of their mission when deciding to advise."]
+        },
+
+        {
+            "tag": "advisor_budget_help",
+            "patterns": ["advisor budget help", "financial oversight", "treasurer help", "budget management"],
+            "responses": ["Advisors should help officers manage budgets, especially the Treasurer. Your signature is encouraged on all financial transactions. Ensure students understand proper procedures for deposits, withdrawals, and record-keeping through the Student Service Center."]
+        },
+
+        {
+            "tag": "advisor_trip_requirements",
+            "patterns": ["advisor travel requirements", "off campus trips", "advisor chaperone", "travel supervision"],
+            "responses": ["Advisors must accompany RSOs on off-campus trips, especially overnight trips or those with high-risk activities. This provides supervision, policy enforcement, safety oversight, and educational coaching for students during travel."]
+        },
+
+        {
+            "tag": "advisor_policy_knowledge",
+            "patterns": ["advisor policy knowledge", "campus policies advisor", "student handbook advisor", "constitution bylaws"],
+            "responses": ["Advisors must be familiar with: the organization's Constitution/By-Laws, Campus Life policies and procedures, and the Student Handbook. This knowledge helps ensure the organization operates within proper guidelines and helps answer student questions."]
+        },
+
+        {
+            "tag": "advisor_officer_transitions",
+            "patterns": ["officer transitions", "advisor help with elections", "new officers", "leadership changes"],
+            "responses": ["Advisors should assist with officer turnover processes, help with elections, and ensure smooth transitions between leadership. This includes helping new officers understand their roles and maintaining organizational continuity from year to year."]
+        },
+
+        {
+            "tag": "advisor_feedback",
+            "patterns": ["advisor feedback", "evaluate organization", "assess group effectiveness", "organization improvement"],
+            "responses": ["Advisors should informally evaluate the quality of effort of membership and share feedback with the Campus Life Department. Look at participation levels, goal achievement, group dynamics, and overall organizational health to provide constructive guidance."]
+        },
+
+        {
+            "tag": "campus_life_contact",
+            "patterns": ["campus life contact", "student life office", "campus life department", "campus life staff"],
+            "responses": ["Campus Life Department locations: Office of Student Engagement (Alumni 201, ext. 3290) and Office of Residence Life (Woods-Penn 302, ext. 3494). Staff available Monday-Friday 8:00 AM - 5:00 PM, closed 12:00-1:00 PM for lunch. Contact campuslife@berea.edu."]
+        },
+
+        {
+            "tag": "campus_life_mission",
+            "patterns": ["campus life mission", "student life mission", "department mission"],
+            "responses": ["Campus Life enhances college experience and strengthens student growth through positive learning environments, providing student-centered programs, services, and involvement opportunities including student organizations, Campus Activities Board, student government, and wellness programs."]
+        },
+
+        {
+            "tag": "registration_windows",
+            "patterns": ["when can I register", "registration dates", "when does registration open", "registration deadlines", "registration periods"],
+            "responses": ["New RSO registration has three windows: Fall (Oct 15-Dec 1), Spring (Jan 15-Mar 1), and End of Spring with re-registration (Apr 15-May 15). Annual re-registration for existing RSOs opens in April."]
+        },
+
+        {
+            "tag": "minimum_members",
+            "patterns": ["how many members needed", "minimum members", "member requirements", "how many people for RSO"],
+            "responses": ["You need minimum 4 students willing to be officers to start a new RSO. There's no maximum membership limit."]
+        },
+
+        {
+            "tag": "meeting_frequency",
+            "patterns": ["how often must we meet", "meeting frequency", "minimum meetings", "how many meetings required"],
+            "responses": ["RSOs must hold at least one general campus-wide meeting per semester for recruitment, plus regular meetings as specified in your constitution (typically at least twice per semester)."]
+        },
+
+        {
+            "tag": "alumni_building_hours",
+            "patterns": ["OSIE hours", "when is OSIE open", "office hours", "Alumni Building hours", "when can I visit"],
+            "responses": ["OSIE in Alumni Building is open Monday-Friday 8:00 AM - 5:00 PM, closed 12:00-1:00 PM for lunch. For appointments or urgent matters outside these hours, email rso@berea.edu."]
+        },
+
+        {
+            "tag": "officer_roles",
+            "patterns": ["officer responsibilities", "president duties", "treasurer duties", "secretary duties", "what does president do"],
+            "responses": ["President: runs meetings and official business. Vice President: presides when president absent. Treasurer: manages finances, monthly audits, approves purchases. Secretary: records minutes and attendance. Specific duties should be detailed in your constitution."]
+        },
+
+        {
+            "tag": "update_constitution",
+            "patterns": ["change constitution", "amend constitution", "update bylaws", "constitution changes"],
+            "responses": ["Constitution amendments require 2/3 vote by the organization (with quorum present) and approval by Student Life Council. Submit updated constitution through Berea Engage after approval. Major changes may require meeting with RSO Specialist."]
+        },
+
+        {
+            "tag": "can_we_collaborate",
+            "patterns": ["collaborate with other RSOs", "partner with organizations", "joint events", "co-sponsor"],
+            "responses": ["Yes! RSOs are encouraged to collaborate on events and programs. Co-sponsoring organizations should all be listed on event requests and promotional materials. This is great for larger events and cross-community engagement."]
+        },
+
+        {
+            "tag": "off_campus_members",
+            "patterns": ["can non-students join", "community members", "off campus members", "alumni membership"],
+            "responses": ["RSO membership is limited to current Berea College students, faculty, and staff. Alumni and community members cannot be official members but may attend public events as guests."]
+        },
+
+        {
+            "tag": "fundraising",
+            "patterns": ["fundraising", "raise money", "fundraiser", "how to fundraise", "fundraising events", "can we fundraise"],
+            "responses": ["RSOs can conduct fundraising activities. All fundraising must follow college solicitation policies. Funds raised must be deposited into your RSO account at Lincoln Hall - no outside bank accounts or electronic transfers allowed. Contact OSIE for fundraising approval and guidelines."]
+        }
+    ]
+}
