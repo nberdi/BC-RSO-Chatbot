@@ -1,6 +1,16 @@
+import nltk
 from flask import Flask, render_template, request, jsonify
 import os
 from chatbot import ChatbotAssistant
+
+
+try:
+    nltk.data.find('tokenizers/punkt_tab')
+except LookupError:
+    print("Downloading NLTK data...")
+    nltk.download('punkt_tab')
+    nltk.download('wordnet')
+    nltk.download('omw-1.4')
 
 
 app = Flask(__name__)
@@ -33,14 +43,18 @@ def home():
 
 @app.route('/chat', methods=['POST'])
 def chat():
-    data = request.get_json()
-    user_message = data.get('message', '')
+    try:
+        data = request.get_json()
+        user_message = data.get('message', '')
 
-    if not user_message:
-        return jsonify({'error': 'No message provided'}), 400
+        if not user_message:
+            return jsonify({'error': 'No message provided', 'status': 'error'}), 400
 
-    response = chatbot.process_message(user_message)
-    return jsonify({'response': response})
+        response = chatbot.process_message(user_message)
+        return jsonify({'response': response, 'status': 'success'})
+    except Exception as e:
+        print(f"Error: {e}")
+        return jsonify({'error': 'Something went wrong', 'status': 'error'}), 500
 
 
 @app.route('/health')
@@ -49,4 +63,5 @@ def health():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8000)
+    port = int(os.environ.get('PORT', 8000))
+    app.run(debug=False, host='0.0.0.0', port=port)
