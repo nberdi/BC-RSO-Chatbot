@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSO Chatbot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>RSO Assistant</h1>
+        </header>
+
+        <div class="chat-container">
+            <div id="chat-messages" class="messages">
+                <div class="message bot-message">
+                    <p>Hello! I can help answer questions about Recognized Student Organizations at Berea College. What would you like to know?</p>
+                </div>
+            </div>
+
+            <form id="chat-form" class="input-form">
+                <input
+                    type="text"
+                    id="user-input"
+                    placeholder="Ask about RSO policies, registration, events..."
+                    autocomplete="off"
+                    required
+                >
+                <button type="submit">Send</button>
+            </form>
+        </div>
+
+        <footer>
+            <p>For additional help, contact <a href="mailto:rso@berea.edu">rso@berea.edu</a></p>
+        </footer>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
