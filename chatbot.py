@@ -1,14 +1,16 @@
-import torch.nn as nn
-import nltk
 import os
 import json
+import pickle
+import random
+import re
 import numpy as np
 import torch
-from torch.utils.data import TensorDataset, DataLoader
-import torch.optim as optim
-import pickle
+import torch.nn as nn
 import torch.nn.functional as F
-import random
+import torch.optim as optim
+from torch.utils.data import TensorDataset, DataLoader
+import nltk
+from spellchecker import SpellChecker
 
 
 class ChatbotModel(nn.Module):
@@ -41,20 +43,23 @@ class ChatbotAssistant:
         self.X = None
         self.y = None
 
-        try:
-            nltk.data.find('tokenizers/punkt')
-        except LookupError:
-            nltk.download('punkt')
+        self.spell = SpellChecker()
 
-        try:
-            nltk.data.find('corpora/wordnet')
-        except LookupError:
-            nltk.download('wordnet')
+        self._download_nltk_data()
 
-        try:
-            nltk.data.find('corpora/omw-1.4')
-        except LookupError:
-            nltk.download('omw-1.4')
+    def _download_nltk_data(self):
+        required_data = [
+            ('tokenizers/punkt', 'punkt'),
+            ('corpora/wordnet', 'wordnet'),
+            ('corpora/omw-1.4', 'omw-1.4')
+        ]
+
+        for path, name in required_data:
+            try:
+                nltk.data.find(path)
+            except LookupError:
+                print(f"Downloading NLTK data: {name}...")
+                nltk.download(name, quiet=True)
 
     @staticmethod
     def tokenize_and_lemmatize(text):
@@ -63,31 +68,86 @@ class ChatbotAssistant:
         words = [lemmatizer.lemmatize(word.lower()) for word in words if word.isalpha()]
         return words
 
-    def parse_intents(self):
-        if os.path.exists(self.intents_path):
-            with open(self.intents_path, 'r', encoding='utf-8') as f:
-                intents_data = json.load(f)
+    def correct_spelling(self, text):
+        words = text.split()
+        corrected_words = []
 
-            all_words = []
+        for word in words:
+            # Keep very short words as-is
+            if len(word) <= 2 or not word.isalpha():
+                corrected_words.append(word)
+            else:
+                # Correct the word
+                corrected = self.spell.correction(word.lower())
+                corrected_words.append(corrected if corrected else word)
 
-            for intent in intents_data['intents']:
-                if intent['tag'] not in self.intents:
-                    self.intents.append(intent['tag'])
-                    self.intents_responses[intent['tag']] = intent['responses']
+        return ' '.join(corrected_words)
 
-                for pattern in intent['patterns']:
-                    pattern_words = self.tokenize_and_lemmatize(pattern)
-                    all_words.extend(pattern_words)
-                    self.documents.append((pattern_words, intent['tag']))
+    @staticmethod
+    def is_valid_input(text):
+        text_no_spaces = text.replace(" ", "").strip()
 
-            self.vocabulary = sorted(set(all_words))
+        # Too short
+        if len(text_no_spaces) < 2:
+            return False
 
-            print(f"Loaded {len(self.intents)} intents with {len(self.vocabulary)} unique words")
-        else:
-            raise FileNotFoundError(f"Intents file not found: {self.intents_path}")
+        # Check if mostly alphabetic
+        alpha_chars = sum(1 for char in text_no_spaces if char.isalpha())
+        if alpha_chars == 0:
+            return False
+
+        # At least 70% should be letters
+        alpha_ratio = alpha_chars / len(text_no_spaces)
+        if alpha_ratio < 0.7:
+            return False
+
+        # Check vowel ratio
+        vowels = sum(1 for char in text_no_spaces.lower() if char in 'aeiou')
+        consonants = sum(
+            1 for char in text_no_spaces.lower()
+            if char.isalpha() and char not in 'aeiou'
+        )
+
+        if consonants > 0:
+            vowel_ratio = vowels / (vowels + consonants)
+            if vowel_ratio < 0.20:
+                return False
+
+        # Check for repeated characters
+        if re.search(r'(.)\1{4,}', text_no_spaces):
+            return False
+
+        # Check for excessive consonant clusters
+        if re.search(r'[bcdfghjklmnpqrstvwxyz]{6,}', text_no_spaces.lower()):
+            return False
+
+        return True
 
     def bag_of_words(self, words):
         return [1 if word in words else 0 for word in self.vocabulary]
+
+    def parse_intents(self):
+        if not os.path.exists(self.intents_path):
+            raise FileNotFoundError(f"Intents file not found: {self.intents_path}")
+
+        with open(self.intents_path, 'r', encoding='utf-8') as f:
+            intents_data = json.load(f)
+
+        all_words = []
+
+        for intent in intents_data['intents']:
+            if intent['tag'] not in self.intents:
+                self.intents.append(intent['tag'])
+                self.intents_responses[intent['tag']] = intent['responses']
+
+            for pattern in intent['patterns']:
+                pattern_words = self.tokenize_and_lemmatize(pattern)
+                all_words.extend(pattern_words)
+                self.documents.append((pattern_words, intent['tag']))
+
+        self.vocabulary = sorted(set(all_words))
+
+        print(f"Loaded {len(self.intents)} intents with {len(self.vocabulary)} unique words")
 
     def prepare_data(self):
         bags = []
@@ -105,11 +165,12 @@ class ChatbotAssistant:
 
         print(f"Training data prepared: {self.X.shape[0]} samples, {self.X.shape[1]} features")
 
-    def train_model(self, batch_size=8, lr=0.001, epochs=100):
+    def train_model(self, batch_size=8, lr=0.001, epochs=200):
         X_tensor = torch.tensor(self.X, dtype=torch.float32)
         y_tensor = torch.tensor(self.y, dtype=torch.long)
         dataset = TensorDataset(X_tensor, y_tensor)
         loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
+
         self.model = ChatbotModel(self.X.shape[1], len(self.intents))
         criterion = nn.CrossEntropyLoss()
         optimizer = optim.Adam(self.model.parameters(), lr=lr)
@@ -134,6 +195,7 @@ class ChatbotAssistant:
 
     def save_model(self, model_path='rso_chatbot_model.pth', data_path='rso_chatbot_data.pkl'):
         torch.save(self.model.state_dict(), model_path)
+
         data = {
             'vocabulary': self.vocabulary,
             'intents': self.intents,
@@ -155,6 +217,7 @@ class ChatbotAssistant:
         self.vocabulary = data['vocabulary']
         self.intents = data['intents']
         self.intents_responses = data['intents_responses']
+
         self.model = ChatbotModel(data['input_size'], data['output_size'])
         self.model.load_state_dict(torch.load(model_path, weights_only=True))
         self.model.eval()
@@ -166,12 +229,40 @@ class ChatbotAssistant:
         max_prob = torch.max(probabilities).item()
         return max_prob
 
-    def process_message(self, input_message, confidence_threshold=0.7):
-        words = self.tokenize_and_lemmatize(input_message)
+    def process_message(self, input_message, confidence_threshold=0.85):
+        # Validate input
+        if not self.is_valid_input(input_message):
+            return (
+                "I didn't quite understand that. Please contact the RSO office "
+                "at rso@berea.edu for assistance with your question."
+            )
+
+        # Correct spelling
+        corrected_message = self.correct_spelling(input_message)
+
+        # Tokenize
+        words = self.tokenize_and_lemmatize(corrected_message)
+
+        if not words:
+            return (
+                "I didn't quite understand that. Please contact the RSO office "
+                "at rso@berea.edu for assistance with your question."
+            )
+
+        # Check vocabulary match
+        matched_words = [w for w in words if w in self.vocabulary]
+
+        if len(matched_words) / len(words) < 0.3:
+            return (
+                "I'm not sure I can help with that. For RSO-related questions, "
+                "please contact rso@berea.edu or visit the OSIE office in Alumni Building."
+            )
+
+        # Get prediction
         bag = self.bag_of_words(words)
         bag_tensor = torch.tensor([bag], dtype=torch.float32)
-        self.model.eval()
 
+        self.model.eval()
         with torch.no_grad():
             predictions = self.model(bag_tensor)
 
@@ -179,18 +270,58 @@ class ChatbotAssistant:
         predicted_class_index = torch.argmax(predictions, dim=1).item()
         predicted_intent = self.intents[predicted_class_index]
 
+        # Check confidence
         if confidence < confidence_threshold:
-            return ("I'm not sure about that. For specific RSO questions, please contact the RSO Specialist at "
-                    "rso@berea.edu or visit the OSIE office in Alumni Building.")
+            return (
+                "I'm not sure about that specific question. Please contact the RSO Specialist "
+                "at rso@berea.edu or visit the OSIE office in Alumni Building (ext. 3290) for assistance."
+            )
 
+        # Execute mapped functions if any
         if self.function_mappings and predicted_intent in self.function_mappings:
             self.function_mappings[predicted_intent]()
 
+        # Return response
         if self.intents_responses[predicted_intent]:
             return random.choice(self.intents_responses[predicted_intent])
         else:
             return ("I understand your question, but I don't have a specific response. Please contact rso@berea.edu "
                     "for assistance.")
+
+    def get_common_questions(self):
+        questions = []
+
+        with open(self.intents_path, 'r', encoding='utf-8') as f:
+            intents_data = json.load(f)
+
+        for intent in intents_data['intents']:
+            for pattern in intent['patterns']:
+                question = self._pattern_to_question(pattern)
+                if question:
+                    questions.append(question)
+
+        return questions
+
+    @staticmethod
+    def _pattern_to_question(pattern):
+        pattern = pattern.strip()
+
+        # Already a question
+        if pattern.endswith('?'):
+            return pattern
+
+        # Starts with question word
+        question_starters = ['how', 'what', 'when', 'where', 'who', 'why', 'can', 'is', 'are', 'do', 'does']
+        first_word = pattern.lower().split()[0] if pattern.split() else ''
+
+        if first_word in question_starters:
+            return pattern.capitalize() + '?'
+
+        # Skip short keyword patterns
+        if len(pattern.split()) < 3:
+            return None
+
+        return pattern.capitalize() + '?'
 
     def chat(self):
         print("=" * 60)
@@ -230,7 +361,10 @@ def load_existing_model():
 
 
 def main():
-    model_exists = os.path.exists('rso_chatbot_model.pth') and os.path.exists('rso_chatbot_data.pkl')
+    model_exists = (
+            os.path.exists('rso_chatbot_model.pth') and
+            os.path.exists('rso_chatbot_data.pkl')
+    )
 
     if model_exists:
         print("Existing model found. Loading...")
