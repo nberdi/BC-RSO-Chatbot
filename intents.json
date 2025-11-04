@@ -388,6 +388,96 @@
             "tag": "fundraising",
             "patterns": ["fundraising", "raise money", "fundraiser", "how to fundraise", "fundraising events", "can we fundraise"],
             "responses": ["RSOs can conduct fundraising activities. All fundraising must follow college solicitation policies. Funds raised must be deposited into your RSO account at Lincoln Hall - no outside bank accounts or electronic transfers allowed. Contact OSIE for fundraising approval and guidelines."]
+        },
+
+        {
+            "tag": "petty_cash_definition",
+            "patterns": ["what is petty cash", "petty cash fund", "what's petty cash", "explain petty cash", "petty cash meaning"],
+            "responses": ["Petty cash is a fund used to reimburse employees for minor, out-of-pocket expenses incurred on behalf of Berea College. Reimbursements are limited to $50 per transaction. Amounts above $50 should be processed through appropriate reimbursement request forms."]
+        },
+
+        {
+            "tag": "petty_cash_establish",
+            "patterns": ["how to get petty cash fund", "establish petty cash", "create petty cash fund", "request petty cash fund", "start petty cash"],
+            "responses": ["To establish a petty cash fund: 1) Chairperson/Director completes a Request for Establishment form, 2) Get approval from applicable Dean or Vice President, 3) Submit to Lead Accountant. Include: dollar amount, building/room location, custodian name and title, reason for fund, secured storage location, and signed Custodian's Statement of Responsibility."]
+        },
+
+        {
+            "tag": "petty_cash_limit",
+            "patterns": ["petty cash limit", "how much petty cash", "maximum petty cash", "petty cash amount limit", "$50 limit"],
+            "responses": ["Petty cash reimbursements are limited to $50 per transaction. Expense reimbursements above $50 should be processed via the appropriate reimbursement request form. Exceptions to the $50 limit can be made by the Lead Accountant upon written notification."]
+        },
+
+        {
+            "tag": "petty_cash_uses",
+            "patterns": ["what can I use petty cash for", "petty cash allowed uses", "petty cash purchases", "petty cash eligible expenses"],
+            "responses": ["Petty cash can be used for: small dollar transactions, non-recurring unexpected expenditures up to $50, and advances for small purchases on behalf of Berea College. All transactions require original receipts showing what was purchased and proof of payment."]
+        },
+
+        {
+            "tag": "petty_cash_not_allowed",
+            "patterns": ["what can't I use petty cash for", "petty cash excluded", "petty cash ineligible", "petty cash prohibited"],
+            "responses": ["Petty cash CANNOT be used for: awards/gifts, loans to employees, personal checks/IOUs, parking fees, fines, money orders, salaries/wages, services, travel, equipment, stamps/postage, subscriptions, membership dues, registration fees, purchases from Berea College entities, or state sales tax."]
+        },
+
+        {
+            "tag": "petty_cash_custodian",
+            "patterns": ["petty cash custodian", "who manages petty cash", "petty cash responsibility", "custodian duties"],
+            "responses": ["The petty cash custodian is personally responsible for the fund. Responsibilities include: safeguarding funds at all times, counting and reconciling at least monthly, reporting overages/shortages, keeping funds locked during non-working hours, and maintaining proper documentation. The custodian should never allow others to access the fund."]
+        },
+
+        {
+            "tag": "petty_cash_reconciliation",
+            "patterns": ["reconcile petty cash", "petty cash count", "petty cash reconciliation", "how often count petty cash"],
+            "responses": ["Petty cash must be counted and reconciled by the custodian at minimum monthly, though weekly is recommended. Total cash plus receipts and vouchers must equal the authorized fund amount. Any overages/shortages must be reported to the Lead Accountant when discovered."]
+        },
+
+        {
+            "tag": "petty_cash_replenishment",
+            "patterns": ["replenish petty cash", "get more petty cash", "petty cash reimbursement", "refill petty cash fund"],
+            "responses": ["To replenish petty cash: 1) Complete a Request for Replenishment form with receipts, 2) Get department head approval, 3) Submit to Lead Accountant for authorization, 4) Present approved request to Student Service Center for processing. Replenish as needed, but always by end of fiscal year."]
+        },
+
+        {
+            "tag": "petty_cash_receipts",
+            "patterns": ["petty cash receipts", "petty cash documentation", "what receipts needed", "petty cash proof"],
+            "responses": ["Petty cash transactions require original receipts (no photocopies) showing: date of purchase, vendor name, proof of payment (cash register receipt, charge card slip), amount paid, and description of goods. Receipts must show what was purchased and that payment was made."]
+        },
+
+        {
+            "tag": "change_fund",
+            "patterns": ["change fund", "what is change fund", "request change fund", "get change fund"],
+            "responses": ["A change fund is money held only for making change for customers in departments that sell goods or services. Maximum $500 (over $500 requires Controller approval). Change funds are NEVER used for petty cash expenditures or refunds. Contact Office of Financial Affairs to request."]
+        },
+
+        {
+            "tag": "petty_cash_close",
+            "patterns": ["close petty cash fund", "end petty cash", "terminate petty cash fund", "petty cash closure"],
+            "responses": ["To close a petty cash fund: 1) Complete a Reconciliation of Petty Cash Fund Closure, 2) Request reimbursement for any expenditures, 3) Deposit funds back into petty cash account (Lead Accountant provides account number), 4) Submit reconciliation copy and deposit receipt to Lead Accountant."]
+        },
+
+        {
+            "tag": "petty_cash_custodian_change",
+            "patterns": ["change petty cash custodian", "new petty cash custodian", "transfer petty cash", "petty cash handover"],
+            "responses": ["To change custodians: notify Lead Accountant in writing BEFORE outgoing custodian departs. For temporary changes, complete a Reconciliation and Temporary Transfer of Custody form signed by official custodian, temporary custodian, and department head. Permanent transfers require closing the fund and establishing a new one."]
+        },
+
+        {
+            "tag": "petty_cash_security",
+            "patterns": ["petty cash security", "store petty cash", "keep petty cash safe", "petty cash storage"],
+            "responses": ["Petty cash must be safeguarded at all times. Never left unlocked during working hours. Must be locked in a safe or secured during non-working hours. Funds over $500 must be stored in a locked safe. Cannot be placed in checking or savings accounts. Each fund must be kept separate."]
+        },
+
+        {
+            "tag": "petty_cash_theft",
+            "patterns": ["petty cash stolen", "petty cash theft", "missing petty cash", "petty cash lost"],
+            "responses": ["If petty cash is stolen: 1) Notify Public Safety immediately, 2) Department head sends letter to Office of Financial Affairs with: custodian name, theft amount, date/hour of theft, circumstances, Public Safety incident report, and actions to prevent future occurrences."]
+        },
+
+        {
+            "tag": "petty_cash_contact",
+            "patterns": ["who handles petty cash", "petty cash office", "petty cash contact", "lead accountant"],
+            "responses": ["Petty cash funds are managed by the Lead Accountant in the Office of Financial Affairs. The Student Service Center processes petty cash fund establishments, replenishments, and closures. Contact the Office of Financial Affairs for petty cash questions and approvals."]
         }
     ]
 }
