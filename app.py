@@ -28,6 +28,13 @@ def initialize_chatbot():
     global chatbot, COMMON_QUESTIONS
 
     try:
+        print("Starting chatbot initialization...")
+
+        if not os.path.exists('intents.json'):
+            raise FileNotFoundError("intents.json not found!")
+
+        print("Found intents.json")
+
         chatbot = ChatbotAssistant('intents.json')
         chatbot.parse_intents()
 
@@ -44,27 +51,39 @@ def initialize_chatbot():
             chatbot.prepare_data()
             chatbot.train_model(batch_size=8, lr=0.001, epochs=200)
             chatbot.save_model()
+            print("Model training completed!")
 
         COMMON_QUESTIONS = chatbot.get_common_questions()
         print(f"Loaded {len(COMMON_QUESTIONS)} common questions for suggestions")
-        print("Chatbot ready!")
+        print("Chatbot initialization completed successfully!")
+
+        return True
 
     except FileNotFoundError as e:
-        print(f"Error: {e}")
-        print("Please ensure intents.json exists in the project directory")
-        raise
+        print(f"ERROR: File not found - {e}")
+        return False
     except Exception as e:
-        print(f"Error initializing chatbot: {e}")
-        raise
+        print(f"ERROR initializing chatbot: {e}")
+        import traceback
+        traceback.print_exc()
+        return False
 
 
 @app.route('/')
 def home():
+    if chatbot is None:
+        return "Chatbot is still initializing. Please refresh in a moment.", 503
     return render_template('index.html')
 
 
 @app.route('/chat', methods=['POST'])
 def chat():
+    if chatbot is None:
+        return jsonify({
+            'error': 'Chatbot not initialized. Please try again later.',
+            'status': 'error'
+        }), 503
+
     try:
         data = request.get_json()
 
@@ -91,6 +110,8 @@ def chat():
 
     except Exception as e:
         print(f"Error in /chat endpoint: {e}")
+        import traceback
+        traceback.print_exc()
         return jsonify({
             'error': 'Something went wrong. Please try again.',
             'status': 'error'
@@ -141,7 +162,11 @@ def main():
 
     download_nltk_data()
 
-    initialize_chatbot()
+    success = initialize_chatbot()
+
+    if not success:
+        print("WARNING: Chatbot initialization failed!")
+        print("Application will start but chatbot will not work.")
 
     port = int(os.environ.get('PORT', 8000))
 
